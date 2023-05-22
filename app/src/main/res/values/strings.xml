@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NaverBookApiProject</string>
+
+    <!--Search Fragment -->
+    <string name="hint_search">검색</string>
+
+    <!--Toast Message     -->
+    <string name="msg_check_network">네트워크를 확인해 주세요</string>
+    <string name="msg_check_book">책 재목을 확인 해 주세요 </string>
+</resources>
