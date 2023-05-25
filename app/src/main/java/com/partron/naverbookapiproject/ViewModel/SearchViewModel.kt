@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.partron.naverbookapiproject.Https.Data.Book
 import com.partron.naverbookapiproject.Https.Data.BookResponse
 import com.partron.naverbookapiproject.Https.Repository
+import com.partron.naverbookapiproject.RoomDataBase.DataBaseTable.SearchList
+import com.partron.naverbookapiproject.Utill.CompanionFunction
 import com.partron.naverbookapiproject.Utill.Define
 import com.partron.naverbookapiproject.Utill.Resource
 import kotlinx.coroutines.Dispatchers
@@ -28,15 +30,17 @@ class SearchViewModel ( private val repository : Repository) : ViewModel() {
     private val _bookSearchLiveData = MutableLiveData<Resource<ArrayList<Book>>>()
     val bookSearchLiveData get() = _bookSearchLiveData
 
+//    private val test = LiveData<>()
     /**
      * 책 검색 api
      */
     fun requestBookApi(id :String , pw : String , query : String) = viewModelScope.launch(Dispatchers.IO) {
         _bookSearchLiveData.postValue(Resource.loading())
+
         val requestBookApi = repository.requestBookApi(id ,pw , query)
         requestBookApi.enqueue(object: Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if(response.isSuccessful){
+                if(response.isSuccessful){ // 200 404 401
                     when(response.code()){
                         Define.SYSTEM_ERROR_NO_API ->{
                             _bookSearchLiveData.postValue(Resource.error(null))
@@ -56,6 +60,11 @@ class SearchViewModel ( private val repository : Repository) : ViewModel() {
                                 return
                             }
                             val result = data.items
+                            val saveStatus  = requestSaveSearchList(query)
+                            if(!saveStatus){
+                                _bookSearchLiveData.postValue(Resource.error(null))
+                                return
+                            }
                             _bookSearchLiveData.postValue(Resource.success(result))
                         }
                     }
@@ -69,7 +78,17 @@ class SearchViewModel ( private val repository : Repository) : ViewModel() {
             }
         })
     }
-
+    @Synchronized
+    fun requestSaveSearchList(query :String): Boolean {
+        val time = CompanionFunction.getCurrentDateTime()
+        val data = SearchList(time , query)
+        try {
+            repository.requestSaveSearchList(data)
+        }catch (E: java.lang.Exception){
+            return false
+        }
+        return true
+    }
 //    fun requestBookApi(id :String , pw : String , query : String) = viewModelScope.launch(Dispatchers.IO) {
 //        main(id, pw, query)
 //    }

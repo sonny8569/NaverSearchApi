@@ -99,7 +99,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.e(TAG , "The Search View is Destory")
+        Log.e(TAG, "The Search View is Destory")
         _binding = null
         _viewModel = null
     }

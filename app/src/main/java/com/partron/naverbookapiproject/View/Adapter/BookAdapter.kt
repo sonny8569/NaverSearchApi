@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.partron.naverbookapiproject.Https.Data.Book
 import com.partron.naverbookapiproject.databinding.AdapterBookBinding
 
-class BookAdapter (val context : Context) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter (private val context : Context) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
     var data = ArrayList<Book>()
 
     inner class  ViewHolder( val binding : AdapterBookBinding) : RecyclerView.ViewHolder(binding.root)
