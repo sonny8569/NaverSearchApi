@@ -1,5 +1,7 @@
 package com.partron.naverbookapiproject.View
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.partron.naverbookapiproject.BuildConfig
 import com.partron.naverbookapiproject.MainActivity
 import com.partron.naverbookapiproject.R
+import com.partron.naverbookapiproject.Utill.OnItemClickListener
 import com.partron.naverbookapiproject.Utill.Resource
 import com.partron.naverbookapiproject.View.Adapter.BookAdapter
 import com.partron.naverbookapiproject.ViewModel.Factory.SearchViewModelFactory
@@ -94,8 +97,22 @@ class SearchFragment : Fragment() {
                 }
             }
         })
-    }
 
+        adapter.setOnClickListener(object: OnItemClickListener{
+            override fun onClickListener(data: String) {
+                if(data == ""){
+                    Log.e(TAG , "ERROR the Link is Null")
+                    return
+                }
+                Log.d(TAG,  "The user Select book link")
+                goToBookPage(data)
+            }
+        })
+    }
+    private fun goToBookPage(url : String){
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
 
     override fun onDestroy() {
         super.onDestroy()
