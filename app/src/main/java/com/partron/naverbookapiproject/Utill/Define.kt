@@ -12,5 +12,6 @@ class Define {
         const val MESSAGE_NO_QUERY = "책 재목을 한번 확인해주세요 "
         const val MESSAGE_SYSTEM_ERROR= "시스템 에러 "
         const val MESSAGE_DATA_NULL = "관련된 책이 없습니다"
+
     }
 }
