@@ -3,8 +3,6 @@ package com.partron.naverbookapiproject.View
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partron.naverbookapiproject.BuildConfig
-import com.partron.naverbookapiproject.MainActivity
 import com.partron.naverbookapiproject.R
+import com.partron.naverbookapiproject.Respository.RepositoryImpl
 import com.partron.naverbookapiproject.Utill.OnItemClickListener
 import com.partron.naverbookapiproject.Utill.Resource
 import com.partron.naverbookapiproject.View.Adapter.BookAdapter
@@ -55,7 +53,7 @@ class SearchFragment : Fragment() {
      * viewModel init
      */
     private fun initViewModel(){
-        val factory = SearchViewModelFactory((requireActivity() as MainActivity).repository)
+        val factory = SearchViewModelFactory(RepositoryImpl())
         _viewModel = ViewModelProvider(this , factory)[SearchViewModel :: class.java]
     }
 
