@@ -1,5 +1,6 @@
 package com.partron.naverbookapiproject.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,10 +29,12 @@ import java.net.URLEncoder
 
 class SearchViewModel ( private val repository : RepositoryImpl) : ViewModel() {
 
-    private val _bookSearchLiveData = MutableLiveData<Resource<ArrayList<Book>>>()
+    private var _bookSearchLiveData = MutableLiveData<Resource<ArrayList<Book>>>()
     val bookSearchLiveData get() = _bookSearchLiveData
 
+    private var TAG = "SearchViewModel"
 //    private val test = LiveData<>()
+
     /**
      * 책 검색 api
      */
@@ -39,8 +42,7 @@ class SearchViewModel ( private val repository : RepositoryImpl) : ViewModel() {
         _bookSearchLiveData.postValue(Resource.loading())
 
         repository.requestBookApi(id, pw, query)
-        val repositoryLiveData = repository.getBookLiveData()
-
+        _bookSearchLiveData.postValue(repository.getBookLiveData().value)
     }
 
     fun requestSaveSearchList(query :String) = viewModelScope.launch(Dispatchers.IO) {
@@ -49,4 +51,8 @@ class SearchViewModel ( private val repository : RepositoryImpl) : ViewModel() {
         repository.requestSaveSearchList(data)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Log.d(TAG , "The SearchViewModel is Clear")
+    }
 }

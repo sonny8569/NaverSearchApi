@@ -2,6 +2,7 @@ package com.partron.naverbookapiproject.Respository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.partron.naverbookapiproject.Https.Data.Book
 import com.partron.naverbookapiproject.Https.Data.BookResponse
 import com.partron.naverbookapiproject.Https.RetrofitInterface
 import com.partron.naverbookapiproject.RoomDataBase.AppdataBase
@@ -14,7 +15,7 @@ import retrofit2.Response
 
 class RepositoryImpl(): Repository {
     private val logTag = "RepositoryImpl"
-    private val bookLiveData = MutableLiveData<Resource<BookResponse>>()
+    private val bookLiveData = MutableLiveData<Resource<ArrayList<Book>>>()
     private val saveSearchListLiveData = MutableLiveData<Resource<String>>()
 
 
@@ -59,7 +60,7 @@ class RepositoryImpl(): Repository {
                             bookLiveData.postValue(Resource.fail(Define.MESSAGE_DATA_NULL))
                             return
                         }
-                        bookLiveData.postValue(Resource.success(data))
+                        bookLiveData.postValue(Resource.success(data.items))
                     }
                     else ->{
                         bookLiveData.postValue(Resource.error(null))
@@ -74,7 +75,7 @@ class RepositoryImpl(): Repository {
         })
     }
 
-    override fun getBookLiveData(): MutableLiveData<Resource<BookResponse>> = bookLiveData
+    override fun getBookLiveData():MutableLiveData<Resource<ArrayList<Book>>> = bookLiveData
 
 
 }
