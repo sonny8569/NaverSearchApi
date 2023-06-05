@@ -29,7 +29,7 @@ import java.net.URLEncoder
 
 class SearchViewModel ( private val repository : RepositoryImpl) : ViewModel() {
 
-    private var _bookSearchLiveData = MutableLiveData<Resource<ArrayList<Book>>>()
+    private var _bookSearchLiveData = repository.getBookLiveData()
     val bookSearchLiveData get() = _bookSearchLiveData
 
     private var TAG = "SearchViewModel"
@@ -42,7 +42,8 @@ class SearchViewModel ( private val repository : RepositoryImpl) : ViewModel() {
         _bookSearchLiveData.postValue(Resource.loading())
 
         repository.requestBookApi(id, pw, query)
-        _bookSearchLiveData.postValue(repository.getBookLiveData().value)
+//        _bookSearchLiveData.postValue(repository.getBookLiveData().value)
+//        _bookSearchLiveData.value = repository.getBookLiveData().value
     }
 
     fun requestSaveSearchList(query :String) = viewModelScope.launch(Dispatchers.IO) {
