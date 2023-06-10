@@ -12,8 +12,11 @@ import com.partron.naverbookapiproject.Utill.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RepositoryImpl(): Repository {
+@Singleton
+class RepositoryImpl @Inject constructor(): Repository {
     private val logTag = "RepositoryImpl"
     private val bookLiveData = MutableLiveData<Resource<ArrayList<Book>>>()
     private val saveSearchListLiveData = MutableLiveData<Resource<String>>()

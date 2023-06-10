@@ -12,6 +12,7 @@ import com.partron.naverbookapiproject.RoomDataBase.DataBaseTable.SearchList
 import com.partron.naverbookapiproject.Utill.CompanionFunction
 import com.partron.naverbookapiproject.Utill.Define
 import com.partron.naverbookapiproject.Utill.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -26,8 +27,10 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLEncoder
+import javax.inject.Inject
 
-class SearchViewModel ( private val repository : RepositoryImpl) : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor( private val repository : RepositoryImpl) : ViewModel() {
 
     private var _bookSearchLiveData = repository.getBookLiveData()
     val bookSearchLiveData get() = _bookSearchLiveData

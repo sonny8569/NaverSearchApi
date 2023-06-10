@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,24 +24,26 @@ import com.partron.naverbookapiproject.View.Adapter.BookAdapter
 import com.partron.naverbookapiproject.ViewModel.Factory.SearchViewModelFactory
 import com.partron.naverbookapiproject.ViewModel.SearchViewModel
 import com.partron.naverbookapiproject.databinding.FragmentSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * 책 검색 fragment
  */
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
     private val TAG =  "SearchFragment"
 
     private var _binding : FragmentSearchBinding ? = null
     private val binding get() = _binding!!
 
-    private var _viewModel : SearchViewModel ? = null
-    private val viewModel get() = _viewModel!!
-
+//    private var _viewModel : SearchViewModel ? = null
+//    private val viewModel get() = _viewModel!!
+    private val viewModel : SearchViewModel by activityViewModels<SearchViewModel>()
     private lateinit var adapter : BookAdapter
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
         _binding = FragmentSearchBinding.inflate(inflater , container , false )
-        initViewModel()
+//        initViewModel()
         return binding.root
     }
 
@@ -49,18 +53,22 @@ class SearchFragment : Fragment() {
         addListener()
     }
 
-    /**
-     * viewModel init
-     */
-    private fun initViewModel(){
-        val factory = SearchViewModelFactory(RepositoryImpl())
-        _viewModel = ViewModelProvider(this , factory)[SearchViewModel :: class.java]
-    }
+//    /**
+//     * viewModel init
+//     */
+//    private fun initViewModel(){
+//        val factory = SearchViewModelFactory(RepositoryImpl())
+//        _viewModel = ViewModelProvider(this , factory)[SearchViewModel :: class.java]
+//    }
 
     private fun init(){
         val layoutManger : RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewBook.layoutManager = layoutManger
         adapter = BookAdapter(requireContext())
+
+//        if(viewModel.bookSearchLiveData.value?.data?.size != null) {
+//            adapter.data = viewModel.bookSearchLiveData.value?.data!!
+//        }
     }
 
     private fun addListener(){
@@ -116,6 +124,6 @@ class SearchFragment : Fragment() {
         super.onDestroy()
         Log.e(TAG, "The Search View is Destory")
         _binding = null
-        _viewModel = null
+//        _viewModel = null
     }
 }

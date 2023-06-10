@@ -7,6 +7,9 @@ import com.partron.naverbookapiproject.Https.RetrofitInterface
 import com.partron.naverbookapiproject.RoomDataBase.AppdataBase
 import com.partron.naverbookapiproject.RoomDataBase.DataBaseTable.SearchList
 import com.partron.naverbookapiproject.Utill.Resource
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 interface Repository {
     //책 API
