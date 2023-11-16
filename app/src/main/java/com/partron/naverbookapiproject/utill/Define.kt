@@ -1,4 +1,4 @@
-package com.partron.naverbookapiproject.Utill
+package com.partron.naverbookapiproject.utill
 
 class Define {
     companion object{

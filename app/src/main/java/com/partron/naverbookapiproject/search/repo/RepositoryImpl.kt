@@ -1,4 +1,4 @@
-package com.partron.naverbookapiproject.Respository
+package com.partron.naverbookapiproject.search.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -7,8 +7,7 @@ import com.partron.naverbookapiproject.Https.Data.BookResponse
 import com.partron.naverbookapiproject.Https.RetrofitInterface
 import com.partron.naverbookapiproject.RoomDataBase.AppdataBase
 import com.partron.naverbookapiproject.RoomDataBase.DataBaseTable.SearchList
-import com.partron.naverbookapiproject.Utill.Define
-import com.partron.naverbookapiproject.Utill.Resource
+import com.partron.naverbookapiproject.utill.Define
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

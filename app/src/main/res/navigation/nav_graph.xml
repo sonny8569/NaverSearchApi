@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.partron.naverbookapiproject.View.SearchFragment"
+        android:name="com.partron.naverbookapiproject.search.SearchFragment"
         tools:layout="@layout/fragment_search"
         android:label="SearchFragment" />
 
