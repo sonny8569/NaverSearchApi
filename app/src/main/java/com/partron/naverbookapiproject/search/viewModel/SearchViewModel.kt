@@ -1,20 +1,16 @@
 package com.partron.naverbookapiproject.search.viewModel
 
-import android.app.DownloadManager.Request
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.partron.naverbookapiproject.Https.Data.BookResponse
-import com.partron.naverbookapiproject.search.repo.RepositoryImpl
-import com.partron.naverbookapiproject.RoomDataBase.DataBaseTable.SearchList
 import com.partron.naverbookapiproject.search.useCase.RequestBookUseCase
-import com.partron.naverbookapiproject.utill.CompanionFunction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.partron.naverbookapiproject.Https.Data.Book
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -37,7 +33,7 @@ class SearchViewModel @Inject constructor(
                     _bookSearchLiveData.postValue(SearchViewResult.ERROR(result.message))
                 }
                 is RequestBookUseCase.BookResult.Success -> {
-                    _bookSearchLiveData.postValue(SearchViewResult.Book(result.data))
+                    _bookSearchLiveData.postValue(SearchViewResult.BookResponse(result.data))
                 }
             }
         }
@@ -46,7 +42,7 @@ class SearchViewModel @Inject constructor(
 
     sealed class SearchViewResult {
         data class Loading(val message: String) : SearchViewResult()
-        data class Book(val data: BookResponse) : SearchViewResult()
+        data class BookResponse(val data: ArrayList<Book>) : SearchViewResult()
         data class ERROR(val message: String) : SearchViewResult()
     }
 

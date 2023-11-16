@@ -74,10 +74,10 @@ class SearchFragment : Fragment() {
                 is SearchViewModel.SearchViewResult.Loading ->{
                     Log.d(TAG , it.message)
                 }
-                is SearchViewModel.SearchViewResult.Book->{
+                is SearchViewModel.SearchViewResult.BookResponse->{
                     Log.d(TAG , "Success to get Book")
                     val result = it.data
-                    adapter.data = result.items
+                    adapter.data = result
                     binding.recyclerviewBook.adapter = adapter
                 }
                 is SearchViewModel.SearchViewResult.ERROR->{
