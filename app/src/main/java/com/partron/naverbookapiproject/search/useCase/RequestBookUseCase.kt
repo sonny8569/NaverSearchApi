@@ -20,8 +20,13 @@ class RequestBookUseCase @Inject constructor(private val repo: Repository) :
     override suspend fun invoke(param: PARAM): BookResult {
         val result = repo.requestBookApi(param.id, param.pw, param.query)
         if (result.message == Define.MESSAGE_SUCCESS) {
-            return BookResult.Success(result.data!!.items)
+            val data = getItem(result.data!!)
+            return BookResult.Success(data)
         }
         return BookResult.Fail(result.message)
+    }
+
+    private fun getItem(data: BookResponse): ArrayList<Book> {
+        return data.items
     }
 }

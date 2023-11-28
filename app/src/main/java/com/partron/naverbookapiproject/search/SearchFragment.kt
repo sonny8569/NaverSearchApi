@@ -20,11 +20,13 @@ import com.partron.naverbookapiproject.search.viewModel.SearchViewModel
 import com.partron.naverbookapiproject.databinding.FragmentSearchBinding
 import com.partron.naverbookapiproject.search.adapter.BookAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
 
 /**
  * 책 검색 fragment
  */
 @AndroidEntryPoint
+@WithFragmentBindings
 class SearchFragment : Fragment() {
     private val TAG =  "SearchFragment"
     private lateinit var binding : FragmentSearchBinding
