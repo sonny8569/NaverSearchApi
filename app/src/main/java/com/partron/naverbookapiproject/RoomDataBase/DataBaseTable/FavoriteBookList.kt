@@ -10,8 +10,8 @@ import com.partron.naverbookapiproject.RoomDataBase.AppdataBase
 )
 
 data class FavoriteBookList(
-    @PrimaryKey var time  : String,
+    @PrimaryKey var time  : Long,
     @ColumnInfo var title : String,
-    @ColumnInfo var writer : String ,
+    @ColumnInfo var image : String,
     @ColumnInfo var link : String
 )

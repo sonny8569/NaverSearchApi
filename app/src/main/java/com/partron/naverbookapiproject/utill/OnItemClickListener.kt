@@ -1,5 +1,7 @@
 package com.partron.naverbookapiproject.utill
 
+import com.partron.naverbookapiproject.Https.Data.Book
+
 interface OnItemClickListener {
-    fun onClickListener(data: String)
+    fun onClickListener(data: Book)
 }

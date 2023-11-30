@@ -9,23 +9,25 @@ import com.partron.naverbookapiproject.Https.Data.Book
 import com.partron.naverbookapiproject.utill.OnItemClickListener
 import com.partron.naverbookapiproject.databinding.AdapterBookBinding
 
-class BookAdapter (private val context : Context) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private val context: Context) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
     var data = ArrayList<Book>()
-    private var onClickListener : OnItemClickListener ?= null
-    inner class  ViewHolder( val binding : AdapterBookBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(data : Book){
+    private var onClickListener: OnItemClickListener? = null
+
+    inner class ViewHolder(private val binding: AdapterBookBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Book) {
             binding.argTitle = data.title
             binding.argLink = data.link
             Glide.with(context).load(data.image).into(binding.imgBook)
 
             binding.txtLink.setOnClickListener {
-                onClickListener!!.onClickListener(data.link)
+                onClickListener!!.onClickListener(data)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = AdapterBookBinding.inflate(LayoutInflater.from(parent.context) , parent ,false )
+        val binding = AdapterBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -34,11 +36,11 @@ class BookAdapter (private val context : Context) : RecyclerView.Adapter<BookAda
     }
 
     override fun getItemCount(): Int {
-       return data.size
+        return data.size
     }
 
     //interface 정의
-    fun setOnClickListener(clickListener : OnItemClickListener){
+    fun setOnClickListener(clickListener: OnItemClickListener) {
         this.onClickListener = clickListener
     }
 

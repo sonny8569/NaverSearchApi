@@ -6,6 +6,7 @@ import com.partron.naverbookapiproject.Https.Data.Book
 import com.partron.naverbookapiproject.Https.Data.BookResponse
 import com.partron.naverbookapiproject.Https.RetrofitInterface
 import com.partron.naverbookapiproject.RoomDataBase.AppdataBase
+import com.partron.naverbookapiproject.RoomDataBase.DataBaseTable.FavoriteBookList
 import com.partron.naverbookapiproject.RoomDataBase.DataBaseTable.SearchList
 import com.partron.naverbookapiproject.search.useCaseObject.BookUseCase
 import com.partron.naverbookapiproject.utill.Define
@@ -17,6 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.awaitResponse
+import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.log
@@ -25,9 +27,6 @@ class RepositoryImpl @Inject constructor() : Repository {
     private val logTag = "RepositoryImpl"
 
     //책 검색 기록 request 함수
-    override suspend fun requestSaveSearchList(data: SearchList) {
-        Log.d(logTag, "미래의 나야 개발을 부탁 한다")
-    }
 
     //책 목록 request 함수
     override suspend fun requestBookApi(id: String, pw: String, query: String): BookUseCase {
@@ -54,6 +53,15 @@ class RepositoryImpl @Inject constructor() : Repository {
             }
 
             else -> BookUseCase(Define.MESSAGE_SYSTEM_ERROR, null)
+        }
+    }
+
+    override suspend fun requestSaveBook(book: FavoriteBookList): Boolean {
+        return try{
+            AppdataBase.getInstance().dataDao().insertFavoriteBook(book)
+            true
+        }catch (e: Exception){
+            false
         }
     }
 
